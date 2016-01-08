@@ -1,0 +1,13 @@
+{% extends "main/base.html" %}
+{% block heading %}修改「{{page.title}}」網頁{% endblock %} 
+{% block content %}
+<body>
+<h1>修改網頁</h1>
+<form method=post action={% url 'area:updatePage' page.id %}>
+{% csrf_token %}
+{{form.as_p}}
+<input type=submit value=送出>
+</form>
+<br>
+<p><a href={% url 'area:category' page.category.id %}>回「{{page.category.name}}」網頁</a></p>
+{% endblock %}

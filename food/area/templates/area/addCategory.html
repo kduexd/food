@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+{% block heading %}新增美食分類{% endblock %}
+{% block content %}
+<h1>新增一個美食分類</h1>
+<form method=post action={% url 'area:addCategory' %}>
+    {% csrf_token %}
+    {{form.as_p}}
+ <input type=submit value=送出>
+ <input type=reset value=重填>
+</form>
+<br>
+<p><a href={% url 'area:area' %}>Back to area</a></p>
+<p><a href={% url 'main:main' %}>Back to Main</a></p>
+{% endblock %}

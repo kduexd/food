@@ -1,0 +1,55 @@
+{% extends "main/base.html" %}
+{% block heading %}首頁{% endblock %}
+{% block content %}
+<!-- Header -->
+            <div id="header">
+                <div class="container">
+                <!-- Logo -->
+                        <h1><a href="#" id="logo"><span style=color:red>美食趣</span></a></h1>
+                        
+                        <!-- Nav -->
+                        <nav id="nav">
+                            <ul>
+                                <li><a href="main.html"><font size=18><span style=color:orange>Home</span></font></a></li>
+                            </ul>
+                            <ul>
+                              <li><a href={% url 'area:area' %}><font size=18><span style=color:orange>美食趣</span></font></a></li>
+                            </ul>
+                        </nav>
+                        
+                        <!-- Banner -->
+                        <div id="banner">
+                            <div class="container">
+                                <section>
+                                    <header class="major">
+                                        <h2>歡迎來到台中吃美食</h2>
+                                        <h2><p>{{message}}</p></h2>
+                                    </header>
+                                    {% if user.is_authenticated %}
+                                    <a href={% url 'account:userLogout' %} class="button alt">Logout</a>
+                                    {% else %}
+                                   <p> <a href={% url 'account:register' %} class="button alt">Sign Up</a></p>
+                                    <a href={% url 'account:userLogin' %} class="button alt">Sign In</a>
+                                    {% endif %}
+                                </section>          
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+          
+                    
+                    
+        <!-- Footer -->
+            <div id="footer">
+                <div class="container">
+
+
+
+{% if messages %}
+    {% for message in messages %}
+        <p {% if message.tags %} class={{message.tags}} {% endif %}>{{message}}</p>
+    {% endfor %}
+{% endif %}
+<p>現在時間：<span style=color:red;>{{now}}</span></p>
+{% endblock %}

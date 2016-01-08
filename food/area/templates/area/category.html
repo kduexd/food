@@ -1,0 +1,44 @@
+{% extends "main/base.html" %}
+{% block heading %}
+「{{category.name}}」之相關網頁
+{% endblock %} 
+{% block content %}
+ {% if category %}
+ <h1>{{category.name}}</h1>
+ {% if pages %}
+ <tr>
+  <th>頁面標題</th>
+ </tr>
+ {% for page in pages %}
+ <table>
+  <td><a href={{page.url}}  class="button alt">{{page.title}}</a></td>
+  <td>
+  {% if user.is_authenticated %}
+<form action={% url 'area:updatePage' page.id %}>
+<input type=submit value=修改>
+</form>
+{% endif %}
+</td>
+  <td>
+  {% if user.is_authenticated %}
+<form method=post action={% url 'area:deletePage' page.id %}>
+{% csrf_token %}
+<input type=submit value=刪除>
+</form>
+{%  endif  %}
+</td> 
+ </table>
+ {% endfor %}
+  {% else %}
+ <p><strong>此類別目前並無頁面。</strong></p>
+ {% endif %}
+ {% if user.is_authenticated %}
+ <p><a href={% url 'area:addPage' category.id %}  class="button alt">新增餐廳</a></p>
+{% endif %}
+ <p>
+  <a href={%url 'area:area' %} class="button alt">回到美食分類</a>
+  </p>
+ {% else %}
+ <p>所指定的類別「{{categoryname}}」不存在。</p>
+ {% endif %}
+{% endblock %}

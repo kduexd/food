@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% block heading %}美食分類{% endblock %}
+{% block content %}
+ {% if categories %}
+ <h2>美食類別：</h2>
+ <table>
+  <tr><th>分類名稱</th><th></th><th></th></tr>
+{% for category in categories %}
+<tr><td><h2></h2><a href={% url 'area:category' category.id %}  class="button alt">{{category.name}}</a></td></h2>
+ <td>
+ {% if user.is_authenticated %}
+<form action={% url 'area:updateCategory' category.id %}>
+<input type="submit" value=修改>
+</form>
+{% endif  %}
+</td>
+ <td>
+  {% if user.is_authenticated %}
+<form method=post action={% url 'area:deleteCategory' category.id %}>
+{% csrf_token %}
+<input type=submit value=刪除>
+</form>
+{% endif  %}
+</td>
+</tr>
+  {% endfor %}
+ </table>
+{% else %}
+ <p><strong> 目前尚未增加美食類別。 </strong></p>
+   {% endif %}
+ {% if user.is_authenticated %}
+ <p><a href={% url 'area:addCategory' %}  class="button alt">新增美食分類</a></p>
+ {% endif %}
+ <p><a href={% url 'main:main' %}  class="button alt">回首頁</a></p>
+ <p>現在時間：<span style=color:red;>{{now}}</span></p>
+
+{% endblock %}
